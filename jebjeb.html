@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Javed Daganda · Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <style>
+        /* ── Reset & base ── */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --white: #ffffff;
+            --off-white: #f7f7f7;
+            --light-gray: #eaeaea;
+            --mid-gray: #aaaaaa;
+            --dark-gray: #444444;
+            --near-black: #1a1a1a;
+            --black: #000000;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --transition: 0.25s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font);
+            background-color: var(--white);
+            color: var(--near-black);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* ── Typography ── */
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--mid-gray);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title span {
+            color: var(--black);
+            border-bottom: 3px solid var(--black);
+            padding-bottom: 0.1em;
+        }
+
+        @media (min-width: 640px) {
+            .section-title {
+                font-size: 3rem;
+            }
+        }
+
+        /* ── Buttons ── */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.01em;
+            border: 2px solid var(--black);
+            background: var(--white);
+            color: var(--black);
+            transition: var(--transition);
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .btn--dark {
+            background: var(--black);
+            color: var(--white);
+            border-color: var(--black);
+        }
+
+        .btn--dark:hover {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        /* ── Navigation ── */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem 0;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--light-gray);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+            color: var(--black);
+        }
+
+        .logo span {
+            font-weight: 300;
+            color: var(--mid-gray);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .nav-links a {
+            position: relative;
+            padding: 0.25rem 0;
+            color: var(--dark-gray);
+            transition: var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 0;
+            height: 2px;
+            background: var(--black);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--black);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.25rem;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--black);
+            transition: var(--transition);
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                gap: 0;
+                background: var(--white);
+                border-bottom: 1px solid var(--light-gray);
+                padding: 0 1.5rem;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease, padding 0.3s ease;
+            }
+
+            .nav-links.open {
+                max-height: 400px;
+                padding: 1.5rem 1.5rem;
+            }
+
+            .nav-links a {
+                padding: 0.75rem 0;
+                border-bottom: 1px solid var(--light-gray);
+                font-size: 1rem;
+            }
+
+            .nav-links a:last-child {
+                border-bottom: none;
+            }
+        }
+
+        /* ── Sections ── */
+        section {
+            padding: 6rem 0;
+        }
+
+        .section-alt {
+            background: var(--off-white);
+        }
+
+        /* ── Home ── */
+        #home {
+            padding-top: 8rem;
+            padding-bottom: 4rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .home-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .home-content h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 0.75rem;
+        }
+
+        .home-content h1 .highlight {
+            border-bottom: 4px solid var(--black);
+            padding-bottom: 0.05em;
+        }
+
+        .home-content .tagline {
+            font-size: 1.15rem;
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .home-content .bio {
+            color: var(--dark-gray);
+            max-width: 500px;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        .home-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .home-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .avatar-placeholder {
+            width: 100%;
+            max-width: 380px;
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+            background: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 7rem;
+            font-weight: 300;
+            color: var(--mid-gray);
+            border: 4px solid var(--black);
+            box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+        }
+
+        .avatar-placeholder span {
+            font-size: 5rem;
+            letter-spacing: -0.05em;
+        }
+
+        .quick-stats {
+            display: flex;
+            gap: 2.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .quick-stats .stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .quick-stats .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--black);
+            line-height: 1;
+        }
+
+        .quick-stats .stat-label {
+            font-size: 0.8rem;
+            color: var(--mid-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0.2rem;
+        }
+
+        @media (max-width: 900px) {
+            .home-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+                text-align: center;
+            }
+
+            .home-content .bio {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .home-actions {
+                justify-content: center;
+            }
+
+            .quick-stats {
+                justify-content: center;
+            }
+
+            .avatar-placeholder {
+                max-width: 240px;
+            }
+
+            #home {
+                padding-top: 7rem;
+                padding-bottom: 2rem;
+            }
+        }
+
+        /* ── Experience ── */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 2rem;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+
+        .timeline-year {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--black);
+            letter-spacing: -0.01em;
+        }
+
+        .timeline-content h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .timeline-content .role {
+            font-weight: 500;
+            color: var(--dark-gray);
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+        }
+
+        .timeline-content p {
+            color: var(--dark-gray);
+            font-size: 0.95rem;
+        }
+
+        .timeline-content .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.6rem;
+        }
+
+        .timeline-content .tags span {
+            background: var(--light-gray);
+            padding: 0.2rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--dark-gray);
+            letter-spacing: 0.02em;
+        }
+
+        @media (max-width: 640px) {
+            .timeline-item {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+                padding: 1.25rem 0;
+            }
+
+            .timeline-year {
+                font-size: 0.8rem;
+                color: var(--mid-gray);
+            }
+        }
+
+        /* ── Services / Projects ── */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .service-card {
+            background: var(--white);
+            padding: 2rem 1.75rem;
+            border: 1px solid var(--light-gray);
+            transition: var(--transition);
+            border-radius: 4px;
+        }
+
+        .service-card:hover {
+            border-color: var(--black);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.08);
+        }
+
+        .service-card .icon {
+            font-size: 2.4rem;
+            line-height: 1;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .service-card h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+
+        .service-card p {
+            color: var(--dark-gray);
+            font-size: 0.95rem;
+        }
+
+        /* ── Education ── */
+        .edu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .edu-card {
+            background: var(--white);
+            padding: 1.5rem 1.75rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .edu-card:hover {
+            border-color: var(--black);
+        }
+
+        .edu-card .school {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.15rem;
+        }
+
+        .edu-card .year {
+            font-size: 0.8rem;
+            color: var(--mid-gray);
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+
+        .edu-card .detail {
+            font-size: 0.85rem;
+            color: var(--dark-gray);
+            margin-top: 0.3rem;
+        }
+
+        /* ── Contact ── */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 1rem;
+        }
+
+        .contact-info h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-info p {
+            color: var(--dark-gray);
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .contact-item:last-child {
+            border-bottom: none;
+        }
+
+        .contact-item .label {
+            font-weight: 500;
+            min-width: 70px;
+            font-size: 0.85rem;
+            color: var(--mid-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .contact-item .value {
+            font-weight: 500;
+            color: var(--near-black);
+            word-break: break-all;
+        }
+
+        .contact-item .value a {
+            transition: var(--transition);
+        }
+
+        .contact-item .value a:hover {
+            color: var(--black);
+            text-decoration: underline;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 0.9rem 1.2rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 4px;
+            font-family: var(--font);
+            font-size: 0.95rem;
+            background: var(--white);
+            transition: var(--transition);
+            outline: none;
+            color: var(--near-black);
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: var(--black);
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-form .btn {
+            align-self: flex-start;
+        }
+
+        @media (max-width: 768px) {
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .contact-form .btn {
+                align-self: stretch;
+            }
+        }
+
+        /* ── Footer ── */
+        footer {
+            padding: 2.5rem 0;
+            border-top: 1px solid var(--light-gray);
+            text-align: center;
+            color: var(--mid-gray);
+            font-size: 0.85rem;
+            background: var(--white);
+        }
+
+        footer .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        footer .socials {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        footer .socials a {
+            font-weight: 500;
+            color: var(--dark-gray);
+            transition: var(--transition);
+            font-size: 0.85rem;
+        }
+
+        footer .socials a:hover {
+            color: var(--black);
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            footer .container {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* ── Utility ── */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-1 {
+            margin-top: 1rem;
+        }
+        .mt-2 {
+            margin-top: 2rem;
+        }
+
+        /* ── Scrollbar ── */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--off-white);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--mid-gray);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--dark-gray);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ─── Navigation ─── -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="#home" class="logo"><span>.</span></a>
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ─── HOME ─── -->
+    <section id="home">
+        <div class="container">
+            <div class="home-grid">
+                <div class="home-content">
+                    <span class="section-label">Virtual Assistant · Information Systems</span>
+                    <h1>
+                        Hi, I'm <span class="highlight">Javed</span> Daganda
+                    </h1>
+                    <p class="tagline">19 · Aspiring Virtual Assistant &amp; IS Student</p>
+                    <p class="bio">
+                        I am a responsible and hardworking person who is willing to learn new skills
+                        and gain experience. I can work well with others and follow instructions properly.
+                        I am motivated to improve myself and open to any opportunity to grow.
+                    </p>
+                    <div class="home-actions">
+                        <a href="#contact" class="btn btn--dark">Get in touch</a>
+                        <a href="#projects" class="btn">View services</a>
+                    </div>
+                    <div class="quick-stats">
+                        <div class="stat">
+                            <span class="stat-number">3+</span>
+                            <span class="stat-label">Work experiences</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">4</span>
+                            <span class="stat-label">Core services</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">2026</span>
+                            <span class="stat-label">Current student</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="home-visual">
+                    <div class="avatar-placeholder">
+                        <span>JD</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── EXPERIENCE ─── -->
+    <section id="experience" class="section-alt">
+        <div class="container">
+            <span class="section-label">Career &amp; Education</span>
+            <h2 class="section-title"><span>Experience</span></h2>
+
+            <div class="timeline">
+                <!-- Helper in Store -->
+                <div class="timeline-item">
+                    <div class="timeline-year">2024 – 2025</div>
+                    <div class="timeline-content">
+                        <h3>Helper in Store</h3>
+                        <div class="role">Store Assistant</div>
+                        <p>Organized items, assisted customers, and kept the area clean.</p>
+                        <div class="tags">
+                            <span>Customer service</span>
+                            <span>Organization</span>
+                            <span>Cleaning</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Work Immersion -->
+                <div class="timeline-item">
+                    <div class="timeline-year">2024</div>
+                    <div class="timeline-content">
+                        <h3>Work Immersion</h3>
+                        <div class="role">Data Encoder</div>
+                        <p>Assigned to encode, organize, and update information using a computer.</p>
+                        <div class="tags">
+                            <span>Data entry</span>
+                            <span>Microsoft Office</span>
+                            <span>Organization</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Printing Shop Assistant -->
+                <div class="timeline-item">
+                    <div class="timeline-year">2023 – 2024</div>
+                    <div class="timeline-content">
+                        <h3>Printing Shop Assistant</h3>
+                        <div class="role">Print &amp; Copy Specialist</div>
+                        <p>Helped print, copy, and organize documents for customers.</p>
+                        <div class="tags">
+                            <span>Printing</span>
+                            <span>Document handling</span>
+                            <span>Customer service</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education -->
+            <h3 style="margin-top: 3.5rem; font-size: 1.3rem; font-weight: 600;">Education</h3>
+            <div class="edu-grid">
+                <div class="edu-card">
+                    <div class="school">Madaum Elementary School</div>
+                    <div class="year">Graduated · 2018</div>
+                </div>
+                <div class="edu-card">
+                    <div class="school">Jose Tuason Jr. Memorial NHS</div>
+                    <div class="year">Graduated · 2024</div>
+                </div>
+                <div class="edu-card">
+                    <div class="school">Davao del Norte State College</div>
+                    <div class="year">Present · 2026</div>
+                    <div class="detail">Information Systems</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── PROJECTS / SERVICES ─── -->
+    <section id="projects">
+        <div class="container">
+            <span class="section-label">What I do</span>
+            <h2 class="section-title"><span>Services</span></h2>
+            <p style="color: var(--dark-gray); max-width: 600px; margin-bottom: 2rem;">
+                I apply as a Virtual Assistant doing simple office and online tasks.
+                I use basic computer tools like Microsoft Word, Excel, and Google Docs.
+            </p>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <span class="icon">📋</span>
+                    <h3>Data Entry &amp; Encoding</h3>
+                    <p>Entering and organizing information accurately using a computer. Fast and detail-oriented.</p>
+                </div>
+                <div class="service-card">
+                    <span class="icon">📱</span>
+                    <h3>Social Media Management</h3>
+                    <p>Managing social media accounts by posting content, replying to messages, and keeping pages active.</p>
+                </div>
+                <div class="service-card">
+                    <span class="icon">🖼️</span>
+                    <h3>Photo Editing</h3>
+                    <p>Editing pictures to improve quality, add designs, and make photos look better.</p>
+                </div>
+                <div class="service-card">
+                    <span class="icon">📧</span>
+                    <h3>Admin &amp; Office Support</h3>
+                    <p>Organizing files, managing emails, online research, scheduling, and document preparation.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 3rem; padding: 2rem; background: var(--off-white); border-left: 4px solid var(--black);">
+                <p style="font-weight: 500; font-size: 1rem;">
+                    “I am hardworking, willing to learn, and can work responsibly with tasks given.”
+                </p>
+                <p style="color: var(--dark-gray); font-size: 0.9rem; margin-top: 0.25rem;">— Javed Daganda</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── CONTACT ─── -->
+    <section id="contact" class="section-alt">
+        <div class="container">
+            <span class="section-label">Let's connect</span>
+            <h2 class="section-title"><span>Contact</span></h2>
+
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <h3>Get in touch</h3>
+                    <p>
+                        I'd love to hear from you. Whether you have a project in mind,
+                        a question, or just want to say hello — feel free to reach out.
+                    </p>
+
+                    <div class="contact-item">
+                        <span class="label">Email</span>
+                        <span class="value">
+                            <a href="mailto:javeddaganda@gmail.com">javeddaganda@gmail.com</a>
+                        </span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="label">Phone</span>
+                        <span class="value">
+                            <a href="tel:+639757414898">09757414898</a>
+                        </span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="label">Facebook</span>
+                        <span class="value">
+                            <a href="#" target="_blank">Javed Daganda</a>
+                        </span>
+                    </div>
+                    <div class="contact-item" style="border-bottom: none; padding-bottom: 0;">
+                        <span class="label">Location</span>
+                        <span class="value">Philippines</span>
+                    </div>
+
+                    <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--light-gray);">
+                        <p style="font-size: 0.9rem; color: var(--dark-gray);">
+                            <strong>Thank you</strong> for taking the time to view my portfolio.
+                            I hope to have the chance to work as a virtual assistant and be part of your team.
+                        </p>
+                    </div>
+                </div>
+
+                <form class="contact-form" id="contactForm">
+                    <input type="text" placeholder="Your name" required />
+                    <input type="email" placeholder="Your email" required />
+                    <input type="text" placeholder="Subject" />
+                    <textarea placeholder="Tell me about your project…" required></textarea>
+                    <button type="submit" class="btn btn--dark">Send message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── FOOTER ─── -->
+    <footer>
+
+            <div class="socials">
+                <a href="mailto:javeddaganda@gmail.com">Email</a>
+                <a href="tel:+639757414898">Phone</a>
+                <a href="#" target="_blank">Facebook</a>
+            </div>
+        
+    </footer>
+
+    <!-- ─── JavaScript ─── -->
+    <script>
+        // ── Hamburger toggle ──
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+        });
+
+        // Close nav on link click (mobile)
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+            });
+        });
+
+        // ── Active nav link on scroll ──
+        const sections = document.querySelectorAll('section');
+        const navAnchors = document.querySelectorAll('.nav-links a');
+
+        function updateActiveLink() {
+            let current = '';
+            const scrollY = window.scrollY + 120;
+
+            sections.forEach(section => {
+                const top = section.offsetTop;
+                const height = section.offsetHeight;
+                if (scrollY >= top && scrollY < top + height) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navAnchors.forEach(anchor => {
+                anchor.classList.remove('active');
+                if (anchor.getAttribute('href') === '#' + current) {
+                    anchor.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveLink);
+        window.addEventListener('load', updateActiveLink);
+
+        // ── Contact form (simple demo) ──
+        const form = document.getElementById('contactForm');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your message, Javed will get back to you soon!');
+            form.reset();
+        });
+
+        // ── Smooth navbar background on scroll ──
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.style.boxShadow = '0 1px 12px rgba(0,0,0,0.04)';
+            } else {
+                navbar.style.boxShadow = 'none';
+            }
+        });
+    </script>
+
+</body>
+</html>
